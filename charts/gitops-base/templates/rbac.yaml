@@ -1,0 +1,26 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: external-secrets-read
+  namespace: {{ .Release.Namespace }}
+rules:
+  - apiGroups: [""]
+    resources: ["secrets"]
+    verbs: ["get", "list", "watch"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: external-secrets-read
+  namespace: {{ .Release.Namespace }}
+
+subjects:
+  - kind: ServiceAccount
+    name: external-secrets
+    namespace: external-secrets
+
+roleRef:
+  kind: Role
+  name: external-secrets-read
+  apiGroup: rbac.authorization.k8s.io
