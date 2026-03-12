@@ -1,0 +1,12 @@
+replicaCount: 1
+
+image:
+  repository: nginx
+  tag: latest
+
+service:
+  port: 80
+
+externalSecret:
+  enabled: true
+  key: demo/password
